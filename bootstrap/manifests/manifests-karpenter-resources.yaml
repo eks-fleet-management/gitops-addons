@@ -17,14 +17,12 @@ spec:
                   - key: enable_karpenter_resources
                     operator: In
                     values: ['true']
-            values:
-              addonChart: karpenter-resources
+              values:
+                addonChart: karpenter-resources
           - clusters:
               selector:
                 matchLabels:
                   environment: excluded-workload
-            values:
-              addonChart: karpenter-resources
   template:
     metadata:
       name: 'karpenter-resources-{{.nameNormalized}}'
