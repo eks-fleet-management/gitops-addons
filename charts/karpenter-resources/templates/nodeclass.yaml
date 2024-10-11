@@ -1,0 +1,24 @@
+---
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: {{ include "karpenter-resources.fullname" . }}
+spec:
+  {{- if or .Values.nodeClass.amiFamily .Values.nodeClass.amiSelectorTerms}}
+  {{- if .Values.nodeClass.amiFamily }}
+  amiFamily: {{.Values.nodeClass.amiFamily }}
+  {{- end }}
+  {{- if .Values.nodeClass.amiSelectorTerms }}
+  amiSelectorTerms:
+    {{- .Values.nodeClass.amiSelectorTerms  | toYaml | nindent 4  }}
+  {{- end }}
+  {{- else }}
+  amiFamily: Bottlerocket
+  {{- end }}
+  role: {{.Values.nodeClass.role}}
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: {{.Values.nodeClass.clusterName}}
+  securityGroupSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: {{.Values.nodeClass.clusterName}}

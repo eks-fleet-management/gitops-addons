@@ -1,0 +1,35 @@
+nodeClass:
+  # amiFamily: AL2
+  # amiSelectorTerms:
+  #   - alias: bottlerocket@latest
+  role: test-role
+  clusterName: test-cluster
+
+nodePool:
+  enabled: true
+  # labels: 
+  #   billing-team: my-team
+  # annotations:
+  #   example.com/owner: my-team
+  # taints:
+  #   - key: example.com/special-taint
+  #     effect: NoSchedule
+  # startupTaints:
+  #   - key: example.com/another-taint
+  #     effect: NoSchedule
+  requirements:
+    - key: "karpenter.k8s.aws/instance-category"
+      operator: In
+      values: ["c", "m", "r"]
+    - key: "karpenter.k8s.aws/instance-cpu"
+      operator: In
+      values: ["4", "8", "16", "32"]
+    - key: "karpenter.k8s.aws/instance-hypervisor"
+      operator: In
+      values: ["nitro"]
+    - key: "karpenter.k8s.aws/instance-generation"
+      operator: Gt
+      values: ["2"]
+  # limits:
+  #   cpu: "2000"
+    # memory: 2000Gi
