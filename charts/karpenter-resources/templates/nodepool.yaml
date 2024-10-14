@@ -3,7 +3,7 @@
 apiVersion: karpenter.k8s.aws/v1
 kind: NodePool
 metadata:
-  name: {{.Values.nodePool.name  | default "default"}}
+  name: {{ .Values.nodePool.name | default "default" }}
 spec:
   template:
     {{- if or .Values.nodePool.labels .Values.nodePool.annotations }}
