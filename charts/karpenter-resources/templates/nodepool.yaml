@@ -1,6 +1,6 @@
 ---
 {{- if .Values.nodePool.enabled | default false }}
-apiVersion: karpenter.k8s.aws/v1
+apiVersion: karpenter.sh/v1
 kind: NodePool
 metadata:
   name: {{ .Values.nodePool.name | default "default" }}
