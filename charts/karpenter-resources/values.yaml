@@ -1,17 +1,23 @@
+nodeClass:
+  # amiFamily: AL2
+  # amiSelectorTerms:
+  #   - alias: bottlerocket@latest
+  role: test-role
+  clusterName: test-cluster
 
 nodePool:
-  enabled: false
+  enabled: true
   name: default
-  labels: 
-    billing-team: my-team
-  annotations:
-    example.com/owner: my-team
-  taints:
-    - key: example.com/special-taint
-      effect: NoSchedule
-  startupTaints:
-    - key: example.com/another-taint
-      effect: NoSchedul
+  # labels: 
+  #   billing-team: my-team
+  # annotations:
+  #   example.com/owner: my-team
+  # taints:
+  #   - key: example.com/special-taint
+  #     effect: NoSchedule
+  # startupTaints:
+  #   - key: example.com/another-taint
+  #     effect: NoSchedul
   requirements:
     - key: "karpenter.k8s.aws/instance-category"
       operator: In
@@ -25,3 +31,6 @@ nodePool:
     - key: "karpenter.k8s.aws/instance-generation"
       operator: Gt
       values: ["2"]
+  # limits:
+  #   cpu: "2000"
+    # memory: 2000Gi
