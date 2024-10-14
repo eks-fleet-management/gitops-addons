@@ -61,7 +61,7 @@ spec:
                 annotations:
                   eks.amazonaws.com/role-arn: {{ default "" .metadata.annotations.ack_iam_role_arn}}
       destination:
-        namespace: '{{.metadata.annotations.ack_namespace}}'
+        namespace: '{{default ack .metadata.annotations.ack_iam_namespace}}'
         name: '{{.name}}'
       syncPolicy:
         automated: {}
