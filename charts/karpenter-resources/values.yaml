@@ -6,7 +6,8 @@ nodeClass:
   clusterName: test-cluster
 
 nodePool:
-  enabled: true
+  enabled: false
+  name: default
   # labels: 
   #   billing-team: my-team
   # annotations:
@@ -16,7 +17,7 @@ nodePool:
   #     effect: NoSchedule
   # startupTaints:
   #   - key: example.com/another-taint
-  #     effect: NoSchedule
+  #     effect: NoSchedul
   requirements:
     - key: "karpenter.k8s.aws/instance-category"
       operator: In

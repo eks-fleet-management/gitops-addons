@@ -3,7 +3,7 @@
 apiVersion: karpenter.k8s.aws/v1
 kind: NodePool
 metadata:
-  name: {{ include "karpenter-resources.fullname" . }}
+  name: {{.Values.nodePool.name  | default "default"}}
 spec:
   template:
     {{- if or .Values.nodePool.labels .Values.nodePool.annotations }}
@@ -25,7 +25,7 @@ spec:
       nodeClassRef:
         group: karpenter.k8s.aws
         kind: EC2NodeClass
-        name: {{ .Values.nodePool.nodeClassName | default (include "karpenter-resources.fullname" .) }}
+        name: {{ .Values.nodePool.nodeClassName | default "default" }}
     {{- if .Values.nodePool.taints}}
         taints:
             {{- .Values.nodePool.taints| toYaml | nindent 10  }}
