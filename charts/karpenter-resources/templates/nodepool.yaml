@@ -37,11 +37,11 @@ spec:
       requirements:
         {{- .Values.nodePool.requirements  | toYaml | nindent 7  }}
     {{- if .Values.nodePool.limits }}
-    limits:
-        {{- .Values.nodePool.limits | toYaml | nindent 6  }}
-    {{- else }}
-    limits:
-      cpu: "1000"
-      memory: 1000Gi
-    {{- end }}
+  limits:
+      {{- .Values.nodePool.limits | toYaml | nindent 6  }}
+  {{- else }}
+  limits:
+    cpu: "1000"
+    memory: 1000Gi
+  {{- end }}
 {{- end }}
