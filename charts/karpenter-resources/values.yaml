@@ -17,7 +17,7 @@ nodePool:
       effect: NoSchedule
   startupTaints:
     - key: example.com/another-taint
-      effect: NoSchedul
+      effect: NoSchedule
   requirements:
     - key: "karpenter.k8s.aws/instance-category"
       operator: In
