@@ -37,7 +37,7 @@ spec:
           ignoreMissingValueFiles: true
           valuesObject:
             nodeClass:
-              role: '{{.metadata.annotations.karpenter_node_iam_role_name}'
+              role: '{{.metadata.annotations.karpenter_node_iam_role_name}}'
               clusterName: '{{.metadata.annotations.aws_cluster_name}}'
           valueFiles:
             - $values/{{.metadata.annotations.manifests_repo_basepath}}{{.metadata.labels.tenant}}/default/manifests/{{.values.addonChart}}/values.yaml
