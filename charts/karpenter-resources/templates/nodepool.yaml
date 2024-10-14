@@ -27,15 +27,15 @@ spec:
         kind: EC2NodeClass
         name: {{ .Values.nodePool.nodeClassName | default "default" }}
     {{- if .Values.nodePool.taints}}
-        taints:
-            {{- .Values.nodePool.taints| toYaml | nindent 10  }}
+      taints:
+        {{- .Values.nodePool.taints| toYaml | nindent 10  }}
     {{- end }}
     {{- if .Values.nodePool.startupTaints}}
-        startupTaints:
+      startupTaints:
             {{- .Values.nodePool.startupTaints| toYaml | nindent 10  }}
     {{- end }}
-    requirements:
-      {{- .Values.nodePool.requirements  | toYaml | nindent 6  }}
+      requirements:
+        {{- .Values.nodePool.requirements  | toYaml | nindent 7  }}
     {{- if .Values.nodePool.limits }}
     limits:
         {{- .Values.nodePool.limits | toYaml | nindent 6  }}
