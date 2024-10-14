@@ -30,7 +30,7 @@ spec:
       project: default
       source:
         repoURL: '{{.metadata.annotations.manifests_repo_url}}'
-        path: '{{.metadata.annotations.manifests_repo_basepath}}charts/{{.values.addonChart}}'
+        path: 'charts/{{.values.addonChart}}'
         targetRevision: '{{.metadata.annotations.manifests_repo_revision}}'
         helm:
           releaseName: '{{.nameNormalized}}'
