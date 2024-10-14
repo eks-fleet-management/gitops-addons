@@ -2,16 +2,6 @@
 nodePool:
   enabled: true
   name: default
-  labels: 
-    billing-team: my-team
-  annotations:
-    example.com/owner: my-team
-  taints:
-    - key: example.com/special-taint
-      effect: NoSchedule
-  startupTaints:
-    - key: example.com/another-taint
-      effect: NoSchedule
   requirements:
     - key: "karpenter.k8s.aws/instance-category"
       operator: In
