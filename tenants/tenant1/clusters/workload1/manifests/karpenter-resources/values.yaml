@@ -1,6 +1,6 @@
 nodePool:
   enabled: true
-  name: default
+  name: myNodePool
   labels: 
     billing-team: my-team
   annotations:
