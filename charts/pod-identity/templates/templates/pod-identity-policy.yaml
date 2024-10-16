@@ -1,0 +1,39 @@
+{{- if .Values.podIdentityPolicy.create | default false }}
+apiVersion: iam.services.k8s.aws/v1alpha1
+kind: Policy
+metadata:
+  name: {{ include "pod-identity.fullname" . }}
+spec:
+  name: {{ include "pod-identity.fullname" . }}
+  description: {{ .Values.podIdentityPolicy.description }}
+  {{- if .Values.podIdentityPolicy.path }}
+  path: {{ .Values.podIdentityPolicy.path }}
+  {{- end }}
+  policyDocument: |
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {{- range $index, $policy := .Values.podIdentityPolicy.policies }}
+        {
+          "Effect": "Allow",
+          "Action": [
+            {{- range $i, $action := $policy.actions }}
+            "{{ $action }}"{{ if not (eq (add $i 1) (len $policy.actions)) }},{{ end }}
+            {{- end }}
+          ],
+          "Resource": [
+            {{- if eq $policy.resourceName "*" }}
+            "*"
+            {{- else }}
+            "{{ include "pod-identity.resourceArn" (dict "resourceType" $policy.resourceType "region" $.Values.region "accountId" $.Values.accountId "resourceName" $policy.resourceName) }}"
+            {{- end }}
+          ]
+        }{{ if not (eq (add $index 1) (len $.Values.podIdentityPolicy.policies)) }},{{ end }}
+        {{- end }}
+      ]
+    }
+  {{- if .Values.podIdentityPolicy.tags}}
+  tags:
+    {{- .Values.podIdentityPolicy.tags| toYaml | nindent 10  }}
+  {{- end }}
+{{- end }}

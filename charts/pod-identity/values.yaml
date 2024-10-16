@@ -1,0 +1,29 @@
+region: eu-west-2
+accountId: "471112582304"
+podIdentityRole:
+  description: "Test"
+podIdentityAssociation:
+  clusterName: hub-cluster
+  namespace: default
+  serviceAccount: test
+podIdentityPolicy:
+  create: true
+  description: "Test"
+  policies:
+    - resourceType: ssm
+      resourceName: parameter/*
+      actions:
+        - "ssm:GetParameter"
+        - "ssm:GetParameters"
+    - resourceType: secretsmanager
+      resourceName: secret:*
+      actions:
+        - "secretsmanager:GetSecretValue"
+    - resourceType: kms
+      resourceName: key/*
+      actions:
+        - "secretsmanager:GetSecretValue"
+    - resourceType: ecr
+      resourceName: "*"
+      actions:
+        - "ecr:GetAuthorizationToken"

@@ -1,0 +1,16 @@
+podIdentityPolicy:
+  description: "Test"
+  policies:
+    - resourceType: ssm
+      resourceName: parameter/*
+      actions:
+        - "ssm:GetParameter"
+        - "ssm:GetParameters"
+    - resourceType: secretsmanager
+      resourceName: secret:*
+      actions:
+        - "secretsmanager:GetSecretValue"
+    - resourceType: ecr
+      resourceName: "*"
+      actions:
+        - "ecr:GetAuthorizationToken"

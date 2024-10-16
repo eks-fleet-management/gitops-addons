@@ -1,0 +1,15 @@
+apiVersion: eks.services.k8s.aws/v1alpha1
+kind: PodIdentityAssociation
+metadata:
+  name: {{ include "pod-identity.fullname" . }}
+spec:
+  clusterName: {{ .Values.podIdentityAssociation.clusterName}}
+  roleRef: 
+    from: 
+      name: {{ include "pod-identity.fullname" . }}
+  namespace: {{ .Values.podIdentityAssociation.namespace}}
+  serviceAccount: {{ .Values.podIdentityAssociation.serviceAccount}}
+  {{- if .Values.podIdentityAssociation.tags}}
+  tags:
+    {{- .Values.podIdentityRole.tags| toYaml | nindent 10  }}
+  {{- end }}
