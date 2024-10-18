@@ -63,10 +63,8 @@ server:
     service:
       annotations:
         prometheus.io/scrape: true
-
   cm:
     url: https://argocd-hub.eks.kandylis.co.uk
-
     dex.config: |
       logger:
         level: debug
@@ -85,10 +83,10 @@ server:
           usernameAttr: email
           emailAttr: email
           groupsAttr: groups
-  rbac:
-    policy.csv: |
-        g, 96b27284-6041-705c-6382-85543eaa1f7e, role:admin
-    scopes: '[groups, email]'
+    rbac:
+      policy.csv: |
+          g, 96b27284-6041-705c-6382-85543eaa1f7e, role:admin
+      scopes: '[groups, email]'
       
 extraObjects:
   - |
