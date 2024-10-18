@@ -27,3 +27,8 @@ podIdentityPolicy:
       resourceName: "*"
       actions:
         - "ecr:GetAuthorizationToken"
+
+# podIdentityPolicy:
+#   create: true
+#   description: "Test"
+#   policyJson: true
