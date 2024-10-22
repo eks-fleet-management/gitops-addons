@@ -1,5 +1,5 @@
 tenant: "tenant1"
-clusterName: "workload1"
+clusterName: "spoke-workload1"
 addons_repo_basepath: "tenants/"
 manifests_repo_basepath: "tenants/"
 secretManagerSecretName: "hub-cluster/spoke-workload1"
