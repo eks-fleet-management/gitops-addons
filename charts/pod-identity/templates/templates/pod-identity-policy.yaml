@@ -9,14 +9,6 @@ spec:
   {{- if .Values.podIdentityPolicy.path }}
   path: {{ .Values.podIdentityPolicy.path }}
   {{- end }}
-  {{- if .Values.podIdentityPolicy.policyJson }}
-  policyDocument: 
-    {{- $files := .Files }}
-    {{- range tuple "iam-ack-policy.toml" }}
-    {{ . }}: |-
-          {{ $files.Get . }}
-    {{- end }}
-  {{- else }}
   policyDocument: |
     {
       "Version": "2012-10-17",
@@ -55,7 +47,6 @@ spec:
         {{- end }}
       ]
     }
-  {{- end }}
   {{- if .Values.podIdentityPolicy.tags }}
   tags:
     {{- .Values.podIdentityPolicy.tags | toYaml | nindent 10 }}
