@@ -66,4 +66,9 @@ Construct a dynamic ARN based on the values passed from ArgoCD or values.yaml.
 {{- define "pod-identity.resourceArn" -}}
 arn:aws:{{ .resourceType }}:{{ .region }}:{{ .accountId }}:{{ .resourceName }}
 {{- end }}
-
+{{- define "pod-identity.accountID" -}}
+{{ .accountId }}
+{{- end }}
+{{- define "pod-identity.region" -}}
+{{ .region }}
+{{- end }}

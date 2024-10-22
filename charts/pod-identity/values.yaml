@@ -1,34 +1,48 @@
-region: eu-west-2
-accountId: "471112582304"
-podIdentityRole:
-  description: "Test"
-podIdentityAssociation:
-  clusterName: hub-cluster
-  namespace: default
-  serviceAccount: test
-podIdentityPolicy:
-  create: true
-  description: "Test"
-  policies:
-    - resourceType: ssm
-      resourceName: parameter/*
-      actions:
-        - "ssm:GetParameter"
-        - "ssm:GetParameters"
-    - resourceType: secretsmanager
-      resourceName: secret:*
-      actions:
-        - "secretsmanager:GetSecretValue"
-    - resourceType: kms
-      resourceName: key/*
-      actions:
-        - "secretsmanager:GetSecretValue"
-    - resourceType: ecr
-      resourceName: "*"
-      actions:
-        - "ecr:GetAuthorizationToken"
-
-# podIdentityPolicy:
-#   create: true
+# region: eu-west-2
+# accountId: "471112582304"
+# create: false
+# podIdentityRole:
 #   description: "Test"
-#   policyJson: true
+# podIdentityAssociation:
+#   clusterName: hub-cluster
+#   namespace: default
+#   serviceAccount: test
+# podIdentityPolicy:
+#   description: "Test"
+#   policies:
+#     - resourceType: ssm
+#       resourceName: "*"
+#       actions:
+#         - "ssm:DescribeParameters"
+#     - resourceType: ssm
+#       resourceName: parameter/*
+#       actions:
+#         - "ssm:GetParameter"
+#         - "ssm:GetParameters"
+#     - resourceType: secretsmanager
+#       resourceName: secret:*
+#       actions:
+#         - "secretsmanager:GetResourcePolicy"
+#         - "secretsmanager:GetSecretValue"
+#         - "secretsmanager:DescribeSecret"
+#         - "secretsmanager:ListSecretVersionIds"
+#         - "secretsmanager:CreateSecret"
+#         - "secretsmanager:PutSecretValue"
+#         - "secretsmanager:TagResource"
+#     - resourceType: secretsmanager
+#       resourceName: secret:*
+#       actions:
+#         - "secretsmanager:DeleteSecret"
+#       conditions:
+#         - test: "StringEquals"
+#           variable: "secretsmanager:ResourceTag/managed-by"
+#           values:
+#             - "external-secrets"
+#     - resourceType: kms
+#       resourceName: "key/*"
+#       actions:
+#         - "kms:Decrypt"
+#     - resourceType: ecr
+#       resourceName: "*"
+#       actions:
+#         - "ecr:GetAuthorizationToken"

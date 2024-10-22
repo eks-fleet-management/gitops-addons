@@ -1,3 +1,4 @@
+{{- if .Values.create | default false }}
 apiVersion: iam.services.k8s.aws/v1alpha1
 kind: Role
 metadata:
@@ -42,3 +43,4 @@ spec:
   tags:
     {{ .Values.podIdentityRole.tags | toYaml | nindent 4 }}
   {{- end }}
+{{- end }}
