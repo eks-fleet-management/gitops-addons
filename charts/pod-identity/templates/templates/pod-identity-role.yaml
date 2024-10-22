@@ -26,19 +26,9 @@ spec:
   inlinePolicies:
     {{ .Values.podIdentityRole.inlinePolicies | toYaml | nindent 4 }}
   {{- end }}
-  {{- if or .Values.podIdentityPolicy.create .Values.podIdentityPolicy.additionalPolicies }}
-  {{- if .Values.podIdentityPolicy.create }}
   policyRefs:
     - from:
         name: {{ include "pod-identity.fullname" . }}
-    {{- end }}
-  {{- if .Values.podIdentityPolicy.additionalPolicies }}
-  policies:
-    {{- range .Values.podIdentityPolicy.additionalPolicies }}
-    - {{ . }}
-    {{- end }}
-  {{- end }}
-  {{- end }}
   {{- if .Values.podIdentityRole.tags }}
   tags:
     {{ .Values.podIdentityRole.tags | toYaml | nindent 4 }}
