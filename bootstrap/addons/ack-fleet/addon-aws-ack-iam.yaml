@@ -20,7 +20,7 @@ spec:
                 addonChartRepository: public.ecr.aws
               selector:
                 matchExpressions:
-                  - key: enable_ack_iam
+                  - key: ackCreate
                     operator: In
                     values: ['true']
           - clusters:
