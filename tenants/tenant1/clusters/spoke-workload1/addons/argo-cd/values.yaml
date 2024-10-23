@@ -1,8 +1,8 @@
 global:
   domain: argocd.eks.kandylis.co.uk
   tolerations:
-  - key: "CriticalAddonsOnly"
-    operator: "Exists"
+    - key: "CriticalAddonsOnly"
+      operator: "Exists"
 
 controller:
   replicas: 1 # Additional replicas will cause sharding of managed clusters across number of replicas.
