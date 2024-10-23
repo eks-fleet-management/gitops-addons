@@ -1,0 +1,25 @@
+podIdentityRole:
+  description: "EFS CSI Default Role"
+podIdentityPolicy:
+  description: "EFS CSI Default Policy"
+  policies:
+    - resourceType: ec2
+      resourceName: "*"
+      actions:
+        - "ec2:DescribeAvailabilityZones"
+    - resourceType: elasticfilesystem
+      resourceName: "*"
+      actions:
+       - "elasticfilesystem:DescribeAccessPoints"
+       - "elasticfilesystem:DescribeFileSystems"
+       - "elasticfilesystem:DescribeMountTargets"
+    - resourceType: elasticfilesystem
+      resourceName: "*"
+      actions:
+        - "elasticfilesystem:CreateAccessPoint"
+        - "elasticfilesystem:DeleteAccessPoint"
+      conditions:
+        - test: "StringLike"
+          variable: "aws:RequestTag/efs.csi.aws.com/cluster"
+          values:
+            - "true"
