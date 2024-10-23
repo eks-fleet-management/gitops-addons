@@ -13,8 +13,12 @@ podIdentityPolicy:
         - "elasticfilesystem:DescribeAccessPoints"
         - "elasticfilesystem:DescribeFileSystems"
         - "elasticfilesystem:DescribeMountTargets"
+        - "elasticfilesystem:DescribeMountTargetSecurityGroups"
     - resourceType: elasticfilesystem
       resourceName: "*"
       actions:
         - "elasticfilesystem:CreateAccessPoint"
         - "elasticfilesystem:DeleteAccessPoint"
+        - "elasticfilesystem:CreateFileSystem"
+        - "elasticfilesystem:CreateMountTarget"
+        - "elasticfilesystem:ModifyMountTargetSecurityGroups"     
