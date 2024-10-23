@@ -10,9 +10,9 @@ podIdentityPolicy:
     - resourceType: elasticfilesystem
       resourceName: "*"
       actions:
-       - "elasticfilesystem:DescribeAccessPoints"
-       - "elasticfilesystem:DescribeFileSystems"
-       - "elasticfilesystem:DescribeMountTargets"
+        - "elasticfilesystem:DescribeAccessPoints"
+        - "elasticfilesystem:DescribeFileSystems"
+        - "elasticfilesystem:DescribeMountTargets"
     - resourceType: elasticfilesystem
       resourceName: "*"
       actions:
