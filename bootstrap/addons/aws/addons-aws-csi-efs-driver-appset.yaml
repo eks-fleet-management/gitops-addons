@@ -14,7 +14,7 @@ spec:
           - clusters:
               values:
                 addonChart: aws-efs-csi-driver
-                addonChartVersion: 3.1.0
+                addonChartVersion: 3.0.8
                 addonChartRepository: https://kubernetes-sigs.github.io/aws-efs-csi-driver
                 controllerServiceAccount: efs-csi-controller-sa
                 nodeServiceAccount: efs-csi-node-sa
@@ -28,13 +28,13 @@ spec:
                 matchLabels:
                   environment: staging
               values:
-                addonChartVersion: 3.1.0
+                addonChartVersion: 3.0.8
           - clusters:
               selector:
                 matchLabels:
                   environment: prod
               values:
-                addonChartVersion: 3.1.0
+                addonChartVersion: 3.0.8
   template:
     metadata:
       name: addon-{{.name}}-{{.values.addonChart}}
