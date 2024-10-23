@@ -18,8 +18,3 @@ podIdentityPolicy:
       actions:
         - "elasticfilesystem:CreateAccessPoint"
         - "elasticfilesystem:DeleteAccessPoint"
-      conditions:
-        - test: "StringLike"
-          variable: "aws:RequestTag/efs.csi.aws.com/cluster"
-          values:
-            - "true"
