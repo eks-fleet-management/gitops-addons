@@ -78,7 +78,7 @@ spec:
                     eks.amazonaws.com/role-arn: {{default "" .metadata.annotations.aws_efs_csi_driver_iam_role_arn}}
               node:
                 serviceAccount:
-                  name: '{{.values.nodeServiceAccount}}''
+                  name: '{{.values.nodeServiceAccount}}'
                   annotations:
                     eks.amazonaws.com/role-arn: {{default "" .metadata.annotations.aws_efs_csi_driver_iam_role_arn}}
       destination:
