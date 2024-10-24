@@ -1,34 +1,39 @@
----
+{{- $defaultRole := .Values.nodeClases.role -}}
+{{- $cluster := .Values.nodeClases.clusterName -}}
+{{- range $nodeClassName, $nodeClass := .Values.nodeClases.classes }}
+{{- $nodeClassRole := default $defaultRole $nodeClass.role -}}
 apiVersion: karpenter.k8s.aws/v1
 kind: EC2NodeClass
 metadata:
-  name: {{ .Values.nodeClass.name | default "default" }}
+  name: {{ $nodeClassName }}
 spec:
-  {{- if .Values.nodeClass.kubelet }}
+  {{- if $nodeClass.kubelet }}
   kubelet:
-    {{- .Values.nodeClass.kubelet | toYaml | nindent 7  }}
+    {{- $nodeClass.kubelet | toYaml | nindent 7  }}
   {{- end }}
-  {{- if or .Values.nodeClass.amiFamily .Values.nodeClass.amiSelectorTerms}}
-  {{- if .Values.nodeClass.amiFamily }}
-  amiFamily: {{.Values.nodeClass.amiFamily }}
+  {{- if or $nodeClass.amiFamily $nodeClass.amiSelectorTerms }}
+  {{- if $nodeClass.amiFamily }}
+  amiFamily: {{ $nodeClass.amiFamily }}
   {{- end }}
-  {{- if .Values.nodeClass.amiSelectorTerms }}
+  {{- if $nodeClass.amiSelectorTerms }}
   amiSelectorTerms:
-    {{- .Values.nodeClass.amiSelectorTerms  | toYaml | nindent 4  }}
+    {{- $nodeClass.amiSelectorTerms  | toYaml | nindent 4  }}
   {{- end }}
   {{- else }}
   amiFamily: Bottlerocket
-  amiSelectorTerms: 
+  amiSelectorTerms:
     - alias: bottlerocket@latest
   {{- end }}
-  role: {{.Values.nodeClass.role}}
+  role: {{ $nodeClassRole }}
   subnetSelectorTerms:
     - tags:
-        karpenter.sh/discovery: {{.Values.nodeClass.clusterName}}
+        karpenter.sh/discovery: {{  $cluster }}
   securityGroupSelectorTerms:
     - tags:
-        karpenter.sh/discovery: {{.Values.nodeClass.clusterName}}
-  {{- if .Values.nodeClass.blockDeviceMappings }}
-  blockDeviceMappings: 
-      {{- .Values.nodeClass.blockDeviceMappings  | toYaml | nindent 4  }}
+        karpenter.sh/discovery: {{  $cluster }}
+  {{- if $nodeClass.blockDeviceMappings }}
+  blockDeviceMappings:
+    {{- $nodeClass.blockDeviceMappings | toYaml | nindent 4 }}
   {{- end }}
+---
+{{- end }}

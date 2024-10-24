@@ -1,22 +1,21 @@
----
-{{- if .Values.nodePool.enabled | default false }}
+{{- range $nodePoolName, $nodePool := .Values.nodePools}}
 apiVersion: karpenter.sh/v1
 kind: NodePool
 metadata:
-  name: {{ .Values.nodePool.name | default "default" }}
+  name: {{ $nodePoolName }}
 spec:
   template:
-    {{- if or .Values.nodePool.labels .Values.nodePool.annotations }}
+    {{- if or $nodePool.labels $nodePool.annotations }}
     metadata:
-      {{- if .Values.nodePool.labels }}
+      {{- if $nodePool.labels }}
       labels:
-        {{- range $key, $value := .Values.nodePool.labels }}
+        {{- range $key, $value := $nodePool.labels }}
         {{ $key }}: {{ $value | quote }}
         {{- end }}
       {{- end }}
-      {{- if .Values.nodePool.annotations }}
+      {{- if $nodePool.annotations }}
       annotations:
-        {{- range $key, $value := .Values.nodePool.annotations }}
+        {{- range $key, $value := $nodePool.annotations }}
         {{ $key }}: {{ $value | quote }}
         {{- end }}
       {{- end }}
@@ -25,23 +24,24 @@ spec:
       nodeClassRef:
         group: karpenter.k8s.aws
         kind: EC2NodeClass
-        name: {{ .Values.nodePool.nodeClassName | default "default" }}
-    {{- if .Values.nodePool.taints}}
+        name: {{ $nodePool.nodeClassName | default "default" }}
+    {{- if $nodePool.taints}}
       taints:
-        {{- .Values.nodePool.taints| toYaml | nindent 10  }}
+        {{- $nodePool.taints| toYaml | nindent 10  }}
     {{- end }}
-    {{- if .Values.nodePool.startupTaints}}
+    {{- if $nodePool.startupTaints}}
       startupTaints:
-            {{- .Values.nodePool.startupTaints| toYaml | nindent 10  }}
+            {{- $nodePool.startupTaints| toYaml | nindent 10  }}
     {{- end }}
       requirements:
-        {{- .Values.nodePool.requirements  | toYaml | nindent 7  }}
-    {{- if .Values.nodePool.limits }}
+        {{- $nodePool.requirements  | toYaml | nindent 7  }}
+    {{- if $nodePool.limits }}
   limits:
-      {{- .Values.nodePool.limits | toYaml | nindent 6  }}
+      {{- $nodePool.limits | toYaml | nindent 6  }}
   {{- else }}
   limits:
     cpu: "1000"
     memory: 1000Gi
   {{- end }}
+---
 {{- end }}

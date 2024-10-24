@@ -1,43 +1,44 @@
-nodeClass:
-  name: nodeclass1
-  blockDeviceMappings:
-    - deviceName: /dev/xvda
-      ebs:
-        volumeSize: 100Gi
-        volumeType: gp3
-        iops: 10000
-        encrypted: true
-        deleteOnTermination: true
-        throughput: 125
-    - deviceName: /dev/xvdb
-      ebs:
-        volumeSize: 100Gi
-        volumeType: gp3
-        iops: 10000
-        encrypted: true
-        deleteOnTermination: true
-        throughput: 125
-nodePool:
-  enabled: true
-  name: nodepool1
-  nodeClassName: nodeclass1
-  labels: 
-    billing-team: my-team
-  annotations:
-    example.com/owner: my-team
-  requirements:
-    - key: "karpenter.k8s.aws/instance-category"
-      operator: In
-      values: ["c", "m", "r"]
-    - key: "karpenter.k8s.aws/instance-cpu"
-      operator: In
-      values: ["4", "8", "16", "32"]
-    - key: "karpenter.k8s.aws/instance-hypervisor"
-      operator: In
-      values: ["nitro"]
-    - key: "karpenter.k8s.aws/instance-generation"
-      operator: Gt
-      values: ["2"]
-  limits:
-    cpu: "2000"
-    memory: 2000Gi
+nodeClases:
+  classes:
+    nodeclass1:
+        blockDeviceMappings:
+          - deviceName: /dev/xvda
+            ebs:
+              volumeSize: 100Gi
+              volumeType: gp3
+              iops: 10000
+              encrypted: true
+              deleteOnTermination: true
+              throughput: 125
+          - deviceName: /dev/xvdb
+            ebs:
+              volumeSize: 100Gi
+              volumeType: gp3
+              iops: 10000
+              encrypted: true
+              deleteOnTermination: true
+              throughput: 125
+# Node Pools Values
+nodePools:
+    nodepool1:
+      nodeClassName: nodeclass1
+      labels: 
+        billing-team: my-team
+      annotations:
+        example.com/owner: my-team
+      requirements:
+        - key: "karpenter.k8s.aws/instance-category"
+          operator: In
+          values: ["c", "m", "r"]
+        - key: "karpenter.k8s.aws/instance-cpu"
+          operator: In
+          values: ["4", "8", "16", "32"]
+        - key: "karpenter.k8s.aws/instance-hypervisor"
+          operator: In
+          values: ["nitro"]
+        - key: "karpenter.k8s.aws/instance-generation"
+          operator: Gt
+          values: ["2"]
+      limits:
+        cpu: "2000"
+        memory: 2000Gi
