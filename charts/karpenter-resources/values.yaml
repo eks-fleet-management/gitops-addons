@@ -3,17 +3,8 @@
 #    clusterName: hub-cluster
 #    classes:
 #     nodeclassx:
-#         # role: test
 #         blockDeviceMappings:
 #           - deviceName: /dev/xvda
-#             ebs:
-#               volumeSize: 100Gi
-#               volumeType: gp3
-#               iops: 10000
-#               encrypted: true
-#               deleteOnTermination: true
-#               throughput: 125
-#           - deviceName: /dev/xvdb
 #             ebs:
 #               volumeSize: 100Gi
 #               volumeType: gp3
@@ -22,25 +13,9 @@
 #               deleteOnTermination: true
 #               throughput: 125
 #     nodeclassy:
-#         role: test2
-#         blockDeviceMappings:
-#           - deviceName: /dev/xvda
-#             ebs:
-#               volumeSize: 100Gi
-#               volumeType: gp3
-#               iops: 10000
-#               encrypted: true
-#               deleteOnTermination: true
-#               throughput: 125
-#           - deviceName: /dev/xvdb
-#             ebs:
-#               volumeSize: 100Gi
-#               volumeType: gp3
-#               iops: 10000
-#               encrypted: true
-#               deleteOnTermination: true
-#               throughput: 125
-
+#       amiFamily: Bottlerocket
+#       amiSelectorTerms:
+#         - alias: bottlerocket@latest
 # nodePools:
 #     nodePool1:
 #       nodeClassName: nodeclass1

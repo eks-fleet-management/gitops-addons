@@ -19,7 +19,9 @@ nodeClases:
               deleteOnTermination: true
               throughput: 125
     nodeclass2:
-
+      amiFamily: Bottlerocket
+      amiSelectorTerms:
+        - alias: bottlerocket@latest
 # Node Pools Values
 nodePools:
     nodepool1:
