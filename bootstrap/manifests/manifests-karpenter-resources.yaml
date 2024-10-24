@@ -36,7 +36,7 @@ spec:
           releaseName: '{{.nameNormalized}}'
           ignoreMissingValueFiles: true
           valuesObject:
-            nodeClass:
+            nodeClases:
               role: '{{.metadata.annotations.karpenter_node_iam_role_name}}'
               clusterName: '{{.metadata.annotations.aws_cluster_name}}'
           valueFiles:
