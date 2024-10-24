@@ -8,6 +8,6 @@ deployment:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              - key: node-role.kubernetes.io/addons
+              - key: node-role/addons
                 operator: In
                 values: ["true"]

@@ -7,7 +7,7 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
         - matchExpressions:
-            - key: node-role.kubernetes.io/addons
+            - key: node-role/addons
               operator: In
               values: ["true"]
 certController:
@@ -19,7 +19,7 @@ certController:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              - key: node-role.kubernetes.io/addons
+              - key: node-role/addons
                 operator: In
                 values: ["true"]
 webhook:
@@ -31,6 +31,6 @@ webhook:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              - key: node-role.kubernetes.io/addons
+              - key: node-role/addons
                 operator: In
                 values: ["true"]
