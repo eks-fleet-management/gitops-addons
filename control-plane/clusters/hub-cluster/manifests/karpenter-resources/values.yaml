@@ -18,6 +18,8 @@ nodeClases:
               encrypted: true
               deleteOnTermination: true
               throughput: 125
+    nodeclass2:
+
 # Node Pools Values
 nodePools:
     nodepool1:
