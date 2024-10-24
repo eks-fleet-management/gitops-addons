@@ -1,6 +1,6 @@
 nodeClases:
   classes:
-    nodeClass:
+    nodeclass:
         blockDeviceMappings:
           - deviceName: /dev/xvda
             ebs:
@@ -12,8 +12,8 @@ nodeClases:
               throughput: 125
 # Node Pools Values
 nodePools:
-    addonsPool:
-      nodeClassName: nodeClass
+    addonspool:
+      nodeClassName: nodeclass
       labels: 
         billing-team: platform-team
       annotations:
@@ -40,8 +40,8 @@ nodePools:
       limits:
         cpu: "2000"
         memory: 2000Gi
-    applicationPool:
-      nodeClassName: nodeClass
+    applicationpool:
+      nodeClassName: nodeclass
       labels: 
         billing-team: developers-team
       annotations:
