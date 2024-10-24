@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argocd-keycloak
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+    - merge:
+        mergeKeys: [server]
+        generators:
+          - clusters:
+              values:
+                addonChart: keycloak
+                addonChartVersion: 22.1.3
+                addonChartRepository: https://charts.bitnami.com/bitnami
+              selector:
+                matchExpressions:
+                  - key: fleet_member
+                    operator: In
+                    values: ['control-plane']
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: staging
+              values:
+                addonChartVersion: 22.1.3
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: prod
+              values:
+                addonChartVersion: 22.1.3
+  template:
+    metadata:
+      name: addon-{{.name | lower }}-{{.values.addonChart}}
+    spec:
+      project: default
+      sources:
+        - repoURL: '{{.metadata.annotations.fleet_repo_url}}'
+          targetRevision: '{{.metadata.annotations.fleet_repo_revision}}'
+          ref: values
+        - chart: '{{.values.addonChart}}'
+          repoURL: '{{.values.addonChartRepository}}'
+          targetRevision: '{{.values.addonChartVersion}}'
+          helm:
+            releaseName: '{{.values.addonChart}}'
+            ignoreMissingValueFiles: true
+            valueFiles:
+              - $values/{{.metadata.annotations.addons_repo_basepath}}{{.metadata.labels.tenant}}/default/addons/{{.values.addonChart}}/values.yaml
+              - $values/{{.metadata.annotations.addons_repo_basepath}}{{.metadata.labels.tenant}}/clusters/{{.name}}/addons/{{.values.addonChart}}/values.yaml
+      destination:
+        namespace: "keycloak"
+        name: '{{.name}}'
+      syncPolicy:
+        automated:
+          prune: false
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true  # Big CRDs.

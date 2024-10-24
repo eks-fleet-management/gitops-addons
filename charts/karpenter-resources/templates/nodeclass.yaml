@@ -4,6 +4,10 @@ kind: EC2NodeClass
 metadata:
   name: {{ .Values.nodeClass.name | default "default" }}
 spec:
+  {{- if .Values.nodeClass.kubelet }}
+  kubelet:
+    {{- .Values.nodeClass.kubelet | toYaml | nindent 7  }}
+  {{- end }}
   {{- if or .Values.nodeClass.amiFamily .Values.nodeClass.amiSelectorTerms}}
   {{- if .Values.nodeClass.amiFamily }}
   amiFamily: {{.Values.nodeClass.amiFamily }}
@@ -24,3 +28,7 @@ spec:
   securityGroupSelectorTerms:
     - tags:
         karpenter.sh/discovery: {{.Values.nodeClass.clusterName}}
+  {{- if .Values.nodeClass.blockDeviceMappings }}
+  blockDeviceMappings: 
+      {{- .Values.nodeClass.blockDeviceMappings  | toYaml | nindent 4  }}
+  {{- end }}
