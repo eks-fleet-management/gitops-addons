@@ -2,3 +2,11 @@
 tolerations:
 - key: "CriticalAddonsOnly"
   operator: "Exists"
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/addons
+              operator: In
+              values: ["true"]

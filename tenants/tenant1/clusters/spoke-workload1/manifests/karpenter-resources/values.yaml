@@ -16,6 +16,7 @@ nodePools:
       nodeClassName: nodeClass
       labels: 
         billing-team: platform-team
+        node-role.kubernetes.io/addons: "true"
       annotations:
         example.com/owner: platform-team
       taints:
