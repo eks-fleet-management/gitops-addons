@@ -1,8 +1,13 @@
 # region: us-west-2
 # accountId: "471112582304"
 # create: true
+# useExistingRole: false  # Option to attach an existing role
+# existingRoleName: ""    # Provide an existing role name if `useExistingRole` is true
 # podIdentityRole:
 #   description: "Test"
+#   managedPolicies:
+#     - "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess" 
+#     - "arn:aws:iam::aws:policy/Admin" 
 # podIdentityAssociation:
 #   clusterName: hub-cluster
 #   namespace: default
