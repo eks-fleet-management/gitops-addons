@@ -1,13 +1,16 @@
 # region: us-west-2
 # accountId: "471112582304"
 # create: true
-# useExistingRole: false  # Option to attach an existing role
-# existingRoleName: ""    # Provide an existing role name if `useExistingRole` is true
 # podIdentityRole:
 #   description: "Test"
+#   # Only one of the two can be true Managed Policy or Policy Refs
+#   # If Policy is created it will automaticaly add it on managed Policies or PolicyRefs
 #   managedPolicies:
 #     - "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess" 
-#     - "arn:aws:iam::aws:policy/Admin" 
+#     - "arn:aws:iam::aws:policy/Admin"
+#   # policyRefs:
+#   #   - name: "custom-policy-1"
+#   #     namespace: kube-system
 # podIdentityAssociation:
 #   clusterName: hub-cluster
 #   namespace: default

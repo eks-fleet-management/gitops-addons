@@ -24,16 +24,41 @@ spec:
       ]
     }
   description: {{ .Values.podIdentityRole.description }}
+
   {{- if .Values.podIdentityRole.managedPolicies }}
   policies:
+    {{- if .Values.podIdentityPolicyCreate | default true }}
+    - "arn:aws:iam::{{ $.Values.accountId }}:policy/{{ include "pod-identity.fullname" . }}"
+    {{- end }}
     {{- range .Values.podIdentityRole.managedPolicies }}
     - "{{ . }}"
     {{- end }}
+  
+  {{- else if .Values.podIdentityRole.policyRefs }}
+  policyRefs:
+    {{- if .Values.podIdentityPolicyCreate | default true }}
+    - from:
+        name: "{{ include "pod-identity.fullname" . }}"
+    {{- end }}
+    {{- range .Values.podIdentityRole.policyRefs }}
+    - from:
+        name: "{{ .name }}"
+        {{- if .namespace }}
+        namespace: "{{ .namespace }}"
+        {{- end }}
+    {{- end }}
+
+  {{- else }}
+  policyRefs:
+    - from:
+        name: "{{ include "pod-identity.fullname" . }}"
   {{- end }}
+
   {{- if .Values.podIdentityRole.inlinePolicies }}
   inlinePolicies:
     {{ .Values.podIdentityRole.inlinePolicies | toYaml | nindent 4 }}
   {{- end }}
+
   {{- if .Values.podIdentityRole.tags }}
   tags:
     {{ .Values.podIdentityRole.tags | toYaml | nindent 4 }}
