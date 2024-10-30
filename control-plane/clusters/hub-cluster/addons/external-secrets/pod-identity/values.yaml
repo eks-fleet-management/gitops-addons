@@ -1,5 +1,9 @@
 podIdentityRole:
   description: "Extenal Secrets Default Role"
+podIdentityAssociation:
+  serviceAccounts:
+      - external-secrets-sa
+      - external-secrets-sa-2
 podIdentityPolicy:
   description: "External Secrets Default Policy with ECR"
   policies:

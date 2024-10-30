@@ -3,6 +3,8 @@ apiVersion: iam.services.k8s.aws/v1alpha1
 kind: Role
 metadata:
   name: {{ include "pod-identity.fullname" . }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   name: {{ include "pod-identity.fullname" . }}
   assumeRolePolicyDocument: |

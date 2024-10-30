@@ -15,7 +15,7 @@ spec:
               values:
                 addonChart: cni-metrics-helper
                 # anything not staging or prod use this version
-                addonChartVersion: 1.18.3
+                addonChartVersion: 1.18.5
                 addonChartRepository: https://aws.github.io/eks-charts
               selector:
                 matchExpressions:
@@ -64,7 +64,7 @@ spec:
               env:
                 AWS_CLUSTER_ID: '{{.metadata.annotations.aws_cluster_name}}'
       destination:
-        namespace: '{{.metadata.annotations.aws_load_balancer_controller_namespace}}'
+        namespace: '{{default "kube-system" (index .metadata.annotations "cni_metrics_helper_namespace")}}'
         name: '{{.name}}'
       syncPolicy:
         automated: {}

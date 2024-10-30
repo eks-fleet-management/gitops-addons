@@ -1,12 +1,14 @@
-# region: eu-west-2
+# region: us-west-2
 # accountId: "471112582304"
-# create: false
+# create: true
 # podIdentityRole:
 #   description: "Test"
 # podIdentityAssociation:
 #   clusterName: hub-cluster
 #   namespace: default
-#   serviceAccount: test
+#   serviceAccounts:
+#       - serviceAccount1
+#       - serviceAccount2
 # podIdentityPolicy:
 #   description: "Test"
 #   policies:
