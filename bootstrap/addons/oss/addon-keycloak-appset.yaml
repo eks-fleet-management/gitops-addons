@@ -13,7 +13,7 @@ spec:
           - clusters:
               values:
                 addonChart: keycloak
-                addonChartVersion: 22.1.3
+                addonChartVersion: 22.1.4
                 addonChartRepository: https://charts.bitnami.com/bitnami
               selector:
                 matchExpressions:
