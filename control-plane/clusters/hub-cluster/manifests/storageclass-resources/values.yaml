@@ -1,0 +1,18 @@
+storageClasses:
+  # EFS StorageClass Configuration
+  efs:
+    efs1:
+      reclaimPolicy: Delete
+      directoryPerms: "700"
+      provisioningMode: efs-ap
+      basePath: /data
+      mountOptions:
+        - nfsvers=4.1
+  ebs:
+    ebs-sc-gp3:
+      reclaimPolicy: Retain
+      volumeType: gp3
+      size: 20Gi
+      iops: 3000
+      throughput: 125
+

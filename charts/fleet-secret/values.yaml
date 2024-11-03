@@ -1,0 +1,30 @@
+secretStore:
+  enabled: false
+  kind: "SecretStore"
+  name: "aws-secrets-manager"
+  region: ""
+
+externalSecret:
+  enabled: false
+  secretStoreRefName: "fleet-eks-secret-store"
+  secretStoreRefKind: "SecretStore"
+  server: "self"
+  secretManagerSecretName: ""
+  clusterName: ""
+
+
+gitSecrets:
+  enabled: false
+  useHttp: true
+  secretStoreRefName: "fleet-eks-secret-store"
+  secretStoreRefKind: "SecretStore"
+  externalSecrets:
+    addons:
+      secretName: "git-addons"
+      secretManagerSecretName: ""
+    platform:
+      secretName: "git-platform"
+      secretManagerSecretName: ""
+    workloads:
+      secretName: "git-workloads"
+      secretManagerSecretName: ""

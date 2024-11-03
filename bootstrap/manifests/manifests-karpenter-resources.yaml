@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: manifests-karpenter-resources
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+    - merge:
+        mergeKeys: [server]
+        generators:
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: enable_karpenter_resources
+                    operator: In
+                    values: ['true']
+              values:
+                addonChart: karpenter-resources
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: excluded-workload
+  template:
+    metadata:
+      name: 'karpenter-resources-{{.nameNormalized}}'
+    spec:
+      project: default
+      source:
+        repoURL: '{{.metadata.annotations.manifests_repo_url}}'
+        path: 'charts/{{.values.addonChart}}'
+        targetRevision: '{{.metadata.annotations.manifests_repo_revision}}'
+        helm:
+          releaseName: '{{.nameNormalized}}'
+          ignoreMissingValueFiles: true
+          valuesObject:
+            nodeClases:
+              role: '{{.metadata.annotations.karpenter_node_iam_role_name}}'
+              clusterName: '{{.metadata.annotations.aws_cluster_name}}'
+          valueFiles:
+            - $values/{{.metadata.annotations.manifests_repo_basepath}}{{.metadata.labels.tenant}}/default/manifests/{{.values.addonChart}}/values.yaml
+            - $values/{{.metadata.annotations.manifests_repo_basepath}}{{.metadata.labels.tenant}}/clusters/{{.name}}/manifests/{{.values.addonChart}}/values.yaml
+      destination:
+        name: '{{.name}}'
+        namespace: "argocd"
+      syncPolicy:
+        automated:
+          allowEmpty: true
+        retry:
+          backoff:
+            duration: 1m
+          limit: 100
+        syncOptions:
+          - CreateNamespace=true
