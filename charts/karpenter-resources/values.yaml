@@ -12,6 +12,11 @@
 #               encrypted: true
 #               deleteOnTermination: true
 #               throughput: 125
+        # metadataOptions:
+        #   httpEndpoint: enabled
+        #   httpProtocolIPv6: disabled
+        #   httpPutResponseHopLimit: 1 # This is changed to disable IMDS access from containers not on the host network
+        #   httpTokens: required
 #     nodeclassy:
 #       amiFamily: Bottlerocket
 #       amiSelectorTerms:

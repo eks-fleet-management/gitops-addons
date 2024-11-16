@@ -4,7 +4,7 @@ kind: Role
 metadata:
   name: {{ include "pod-identity.fullname" . }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   name: {{ include "pod-identity.fullname" . }}
   assumeRolePolicyDocument: |
@@ -27,7 +27,7 @@ spec:
 
   {{- if .Values.podIdentityRole.managedPolicies }}
   policies:
-    {{- if .Values.podIdentityPolicyCreate | default true }}
+    {{- if and (.Values.podIdentityPolicyCreate | default false) .Values.podIdentityRole.managedPolicies }}
     - "arn:aws:iam::{{ $.Values.accountId }}:policy/{{ include "pod-identity.fullname" . }}"
     {{- end }}
     {{- range .Values.podIdentityRole.managedPolicies }}

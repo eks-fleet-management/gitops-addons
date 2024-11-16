@@ -39,7 +39,7 @@ spec:
           effect: {{ $startupTaint.effect }}
         {{- end }}
       {{- end }}
-      expireAfter: {{ $nodePool.expireAfter | default "Never" }}
+      expireAfter: {{ $nodePool.expireAfter | default "720h" }}
       terminationGracePeriod: {{ $nodePool.terminationGracePeriod | default "48h" }}
       requirements:
         {{- range $requirement := $nodePool.requirements }}

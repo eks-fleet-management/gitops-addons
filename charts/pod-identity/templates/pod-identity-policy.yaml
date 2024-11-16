@@ -1,11 +1,10 @@
-{{- if .Values.create | default false }}
-{{- if .Values.podIdentityPolicyCreate | default true }}
+{{- if and (.Values.create | default false) (.Values.podIdentityPolicyCreate | default false) }}
 apiVersion: iam.services.k8s.aws/v1alpha1
 kind: Policy
 metadata:
   name: {{ include "pod-identity.fullname" . }}
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-wave: "-3"
 spec:
   name: {{ include "pod-identity.fullname" . }}
   description: {{ .Values.podIdentityPolicy.description }}
@@ -54,5 +53,4 @@ spec:
   tags:
     {{- .Values.podIdentityPolicy.tags | toYaml | nindent 10 }}
   {{- end }}
-{{- end }}
 {{- end }}

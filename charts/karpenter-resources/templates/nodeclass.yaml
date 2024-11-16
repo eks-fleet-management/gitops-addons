@@ -35,5 +35,9 @@ spec:
   blockDeviceMappings:
     {{- $nodeClass.blockDeviceMappings | toYaml | nindent 4 }}
   {{- end }}
+  {{- if $nodeClass.metadataOptions }}
+  metadataOptions:
+    {{- $nodeClass.metadataOptions | toYaml | nindent 4 }}
+  {{- end }}
 ---
 {{- end }}

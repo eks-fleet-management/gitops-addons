@@ -1,0 +1,63 @@
+addons:
+  iam-chart:
+    enabled: true
+    namespace: ack-system
+    defaultVersion: "1.3.13"
+    chartNamespace: aws-controllers-k8s
+    chartRepository: public.ecr.aws
+    selector:
+      matchExpressions:
+        - key: enable_iam_chart
+          operator: In
+          values: ['true']
+    valuesObject:
+      aws:
+        region: '{{.metadata.annotations.aws_region}}'
+      serviceAccount:
+        name: '{{.metadata.annotations.ack_iam_service_account}}'
+  ack-eks:
+    enabled: true
+    namespace: ack-system
+    chartName: eks-chart
+    defaultVersion: "1.5.1"
+    chartNamespace: aws-controllers-k8s
+    chartRepository: public.ecr.aws
+    selector:
+      matchExpressions:
+        - key: enable_eks_chart
+          operator: In
+          values: ['true']
+    valuesObject:
+      aws:
+        region: '{{.metadata.annotations.aws_region}}'
+      serviceAccount:
+        name: '{{.metadata.annotations.ack_eks_service_account}}'
+  external-secrets:
+    enabled: true
+    enableACK: true
+    namespace: external-secrets
+    chartName: external-secrets
+    defaultVersion: "0.10.3"
+    chartRepository: "https://charts.external-secrets.io"
+    selector:
+      matchExpressions:
+        - key: enable_external_secrets_v2
+          operator: In
+          values: ['true']
+    valuesObject:
+      serviceAccount:
+        name: '{{default "external-secrets-sa" .serviceAccount}}'
+        annotations:
+          eks.amazonaws.com/role-arn: '{{default "" .metadata.annotations.external_secrets_iam_role_arn}}'
+  kro-chart:
+    enabled: true
+    namespace: kro
+    chartName: kro
+    chartNamespace: kro
+    defaultVersion: "0.1.0"
+    chartRepository: public.ecr.aws
+    selector:
+      matchExpressions:
+        - key: enable_kro_chart
+          operator: In
+          values: ['true']
