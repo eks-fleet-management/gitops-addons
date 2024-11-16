@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: addons-aws-ack-iam
+  name: addons-aws-ack-iam-old
 spec:
   goTemplate: true
   syncPolicy:
@@ -20,7 +20,7 @@ spec:
                 addonChartRepository: public.ecr.aws
               selector:
                 matchExpressions:
-                  - key: ackCreate
+                  - key: enable_iam_ack
                     operator: In
                     values: ['true']
           - clusters:
@@ -28,13 +28,7 @@ spec:
                 matchLabels:
                   environment: staging
               values:
-                addonChartVersion: "1.3.13"
-          - clusters:
-              selector:
-                matchLabels:
-                  environment: prod
-              values:
-                addonChartVersion: "1.3.13"
+                addonChartVersion: "1.5.1"
   template:
     metadata:
       name: addon-{{.name}}-{{.values.addonChartReleaseName}}

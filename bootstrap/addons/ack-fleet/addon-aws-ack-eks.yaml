@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: addons-aws-ack-eks
+  name: addons-aws-ack-eks-old
 spec:
   goTemplate: true
   syncPolicy:
@@ -20,7 +20,7 @@ spec:
                 addonChartRepository: public.ecr.aws
               selector:
                 matchExpressions:
-                  - key: ackCreate
+                  - key: enable_eks_ack
                     operator: In
                     values: ['true']
           - clusters:
